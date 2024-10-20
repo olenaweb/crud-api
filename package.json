@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "simple crud api",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start:dev": "nodemon ./src/index.ts",
+    "start:dev": "npx ts-node ./src/index.ts",
     "start:prod": "webpack && node ./dist/index.cjs",
     "lintfix": "npx eslint src/**/*.ts --fix",
-    "fix": "npx prettier '**/*.{ts,css,html}' --write && eslint . --ext .ts --fix",
+    "fix": "npx prettier '**/*.{ts,css,html}' --write && npx eslint src/**/*.ts --fix",
     "test": "npm run test "
   },
   "repository": {
