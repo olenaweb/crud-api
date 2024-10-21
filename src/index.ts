@@ -9,6 +9,10 @@ export const server = createServer(
   (req: IncomingMessage, res: ServerResponse) => {
     console.log('"req="', req);
     console.log('"res="', res);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      data: 'Hello World!',
+    }));
   },
 );
 
