@@ -92,3 +92,14 @@ npm run dev:nodemon    # Classic approach with nodemon
 npm run start:prod     # Build and run optimized version
 ```
 
+#### Check RUN
+
+Browser URI : http://localhost:3500/api/users
+
+Bash terminal :
+
+curl http://localhost:3500/api/users
+
+curl -X POST http://localhost:3500/api/users \
+  -H "Content-Type: application/json" \
+  -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'

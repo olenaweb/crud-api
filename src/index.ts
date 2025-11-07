@@ -1,20 +1,19 @@
 import { EOL } from "os";
 import "dotenv/config";
 import { createServer, IncomingMessage, ServerResponse } from "http";
+import { RequestManager } from "./manager/requestManager.js";
 
 const host = "localhost";
 export const port = parseInt(process.env.PORT!) || 3500;
 
+const requestManager = new RequestManager();
+
 export const server = createServer(
-  (req: IncomingMessage, res: ServerResponse) => {
-    console.log('"req="', req);
-    console.log('"res="', res);
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        data: "Hello World!",
-      })
-    );
+  async (req: IncomingMessage, res: ServerResponse) => {
+    const { url } = req;
+    console.log("url = ", url);
+
+    await requestManager.handleRequest(req, res);
   }
 );
 
