@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,js,json",
+  "ignore": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ],
+  "exec": "cross-env NODE_NO_WARNINGS=1 npx ts-node --esm ./src/index.ts",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "delay": 500
+}

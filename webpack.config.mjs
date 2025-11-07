@@ -25,9 +25,14 @@ export default {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'index.cjs',
+    filename: 'index.js',
     path: resolve(__dirname, 'dist'),
     clean: true,
+    module: true,
+    chunkFormat: 'module',
+  },
+  experiments: {
+    outputModule: true,
   },
   plugins: [
     new ESLintPlugin({ extensions: 'ts' }),

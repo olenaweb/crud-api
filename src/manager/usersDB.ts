@@ -1,5 +1,5 @@
-import { v4 as uuid } from 'uuid';
-import { reqUser, DbUser } from '../types';
+import { v4 as uuid } from "uuid";
+import { reqUser, DbUser } from "../types";
 
 class UsersDB {
   users: Array<DbUser> = [];
@@ -32,13 +32,15 @@ class UsersDB {
   async deleteUser(id: string) {
     const index = this.users.findIndex((user) => user.id === id);
     if (index === -1) {
-      return (404);
+      return 404;
     } else {
-      this.users = [...this.users.slice(0, index), ...this.users.slice(index + 1)];
-      return (204);
+      this.users = [
+        ...this.users.slice(0, index),
+        ...this.users.slice(index + 1),
+      ];
+      return 204;
     }
   }
 }
-
 
 export const usersDB = new UsersDB();

@@ -1,9 +1,6 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import { errMessages, headers, endpoint } from '../types';
-import { usersDB } from './usersDB';
+import { headers, endpoint } from "../types";
 export class RequestManager {
   endpoint = endpoint;
   headers = headers;
-  constructor() {
-  }
+  constructor() {}
 }
