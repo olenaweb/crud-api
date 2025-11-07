@@ -101,5 +101,6 @@ Bash terminal :
 curl http://localhost:3500/api/users
 
 curl -X POST http://localhost:3500/api/users \
-  -H "Content-Type: application/json" \
   -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'
+
+curl http://localhost:3500/api/users/791e4409-5d3a-44fd-8141-e6a436df9cb8

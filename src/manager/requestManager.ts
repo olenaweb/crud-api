@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { headers, endpoint, errMessages, reqUser } from "../types";
 import { usersDB } from "./usersDB";
+import { validate as isValidUUID } from "uuid";
 
 export class RequestManager {
   endpoint = endpoint;
@@ -32,6 +33,12 @@ export class RequestManager {
       // --- GET /api/users ---
       if (url === this.endpoint && method === "GET") {
         return await this.handleGetUsers(res);
+      }
+
+      // --- GET /api/users/{userId} ---
+      if (url.startsWith(this.endpoint + "/") && method === "GET") {
+        const userId = url.split("/").pop();
+        return await this.handleGetUserById(res, userId);
       }
 
       // --- POST /api/users ---
@@ -83,5 +90,29 @@ export class RequestManager {
         });
       }
     });
+  }
+
+  private async handleGetUserById(res: ServerResponse, userId: string | undefined) {
+    if (!userId) {
+      return this.sendResponse(res, 400, {
+        message: "User ID is required"
+      });
+    }
+
+    if (!isValidUUID(userId)) {
+      return this.sendResponse(res, 400, {
+        message: "Invalid user ID format"
+      });
+    }
+
+    const user = await usersDB.getUserById(userId);
+
+    if (!user) {
+      return this.sendResponse(res, 404, {
+        message: "User not found"
+      });
+    }
+
+    return this.sendResponse(res, 200, user);
   }
 }
