@@ -50,6 +50,12 @@ export class RequestManager {
         return await this.handlePutUser(req, res, userId);
       }
 
+      // --- DELETE /api/users/{userId} ---
+      if (url.startsWith(this.endpoint + "/") && method === "DELETE") {
+        const userId = url.split("/").pop();
+        return await this.handleDeleteUser(res, userId);
+      }
+
       this.sendResponse(res, 404, { message: errMessages.invalidEndpoint });
     } catch (err) {
       console.error(err);
@@ -166,5 +172,29 @@ export class RequestManager {
         });
       }
     });
+  }
+
+  private async handleDeleteUser(res: ServerResponse, userId: string | undefined) {
+    if (!userId) {
+      return this.sendResponse(res, 400, {
+        message: "User ID is required"
+      });
+    }
+
+    if (!isValidUUID(userId)) {
+      return this.sendResponse(res, 400, {
+        message: "Invalid user ID format"
+      });
+    }
+
+    const result = await usersDB.deleteUser(userId);
+
+    if (result === 404) {
+      return this.sendResponse(res, 404, {
+        message: "User not found"
+      });
+    }
+
+    return this.sendResponse(res, 204, null);
   }
 }
