@@ -12,6 +12,7 @@ class UsersDB {
     const id = uuid();
     const user = { id, ...newUser };
     this.users.push(user);
+    return user;
   }
 
   async getUserById(id: string) {
@@ -20,13 +21,15 @@ class UsersDB {
   }
 
   async updateUser(user: DbUser) {
-    if (user.id) {
-      const index = this.users.findIndex((item) => item.id === user.id);
-      this.users[index] = user;
-      return user;
-    } else {
+    if (!user.id) {
       return null;
     }
+    const index = this.users.findIndex((item) => item.id === user.id);
+    if (index === -1) {
+      return null;
+    }
+    this.users[index] = user;
+    return user;
   }
 
   async deleteUser(id: string) {

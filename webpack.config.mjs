@@ -1,12 +1,11 @@
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import ESLintPlugin from 'eslint-webpack-plugin'; // Используй дефолтный экспорт
+import ESLintPlugin from 'eslint-webpack-plugin';
 
 const filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(filename);
 
 export default {
-  // mode: 'development',
   mode: 'production',
   entry: {
     main: resolve(__dirname, './src/index.ts'),

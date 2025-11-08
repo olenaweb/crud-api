@@ -6,7 +6,7 @@ export const errMessages = {
   invalidUuid: "Invalid uuid",
   userNotFound: "User is not found",
   invalidRequest:
-    "Invalid request. Request Body should be consist of: {username:string, age:number, hobbies: string array}",
+    "Invalid request. Request Body should consist of: {username:string, age:number, hobbies: string array}",
 };
 
 export interface reqUser {

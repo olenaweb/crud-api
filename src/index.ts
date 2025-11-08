@@ -4,7 +4,7 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { RequestManager } from "./manager/requestManager.js";
 
 const host = "localhost";
-export const port = parseInt(process.env.PORT!) || 3500;
+export const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3500;
 
 const requestManager = new RequestManager();
 

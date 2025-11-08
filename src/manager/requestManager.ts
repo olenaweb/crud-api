@@ -7,8 +7,6 @@ export class RequestManager {
   endpoint = endpoint;
   headers = headers;
 
-  constructor() { }
-
   private sendResponse(res: ServerResponse, statusCode: number, data: unknown) {
     res.writeHead(statusCode, this.headers);
     res.end(JSON.stringify(data));
@@ -85,9 +83,7 @@ export class RequestManager {
           });
         }
 
-        await usersDB.addUser(parsed);
-        const allUsers = await usersDB.getAllUsers();
-        const newUser = allUsers[allUsers.length - 1];
+        const newUser = await usersDB.addUser(parsed);
 
         return this.sendResponse(res, 201, newUser);
       } catch {
