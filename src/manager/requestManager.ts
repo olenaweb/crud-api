@@ -46,6 +46,12 @@ export class RequestManager {
         return await this.handlePostUser(req, res);
       }
 
+      // --- PUT /api/users/{userId} ---
+      if (url.startsWith(this.endpoint + "/") && method === "PUT") {
+        const userId = url.split("/").pop();
+        return await this.handlePutUser(req, res, userId);
+      }
+
       this.sendResponse(res, 404, { message: errMessages.invalidEndpoint });
     } catch (err) {
       console.error(err);
@@ -114,5 +120,55 @@ export class RequestManager {
     }
 
     return this.sendResponse(res, 200, user);
+  }
+
+  private async handlePutUser(req: IncomingMessage, res: ServerResponse, userId: string | undefined) {
+    if (!userId) {
+      return this.sendResponse(res, 400, {
+        message: "User ID is required"
+      });
+    }
+
+    if (!isValidUUID(userId)) {
+      return this.sendResponse(res, 400, {
+        message: "Invalid user ID format"
+      });
+    }
+
+    const existingUser = await usersDB.getUserById(userId);
+    if (!existingUser) {
+      return this.sendResponse(res, 404, {
+        message: "User not found"
+      });
+    }
+
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+
+    req.on("end", async () => {
+      try {
+        const parsed: reqUser = JSON.parse(body);
+
+        if (
+          typeof parsed.username !== "string" ||
+          typeof parsed.age !== "number" ||
+          !Array.isArray(parsed.hobbies)
+        ) {
+          return this.sendResponse(res, 400, {
+            message: errMessages.invalidRequest,
+          });
+        }
+
+        const userToUpdate = { id: userId, ...parsed };
+        const updatedUser = await usersDB.updateUser(userToUpdate);
+        return this.sendResponse(res, 200, updatedUser);
+      } catch {
+        return this.sendResponse(res, 400, {
+          message: errMessages.invalidRequest,
+        });
+      }
+    });
   }
 }
