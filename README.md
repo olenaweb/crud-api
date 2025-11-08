@@ -121,6 +121,7 @@ curl -X PUT http://localhost:3500/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d
 
 curl -i -X PUT http://localhost:3500/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d \
   -d '{"username":"Alice","age":30,"hobbies":["writing","reading"]}'
+  
 ###### DELETE api/users/userId is used to delete existing user from database
 curl -X DELETE http://localhost:3500/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d  
 

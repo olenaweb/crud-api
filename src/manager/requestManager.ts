@@ -100,16 +100,19 @@ export class RequestManager {
     });
   }
 
-  private async handleGetUserById(res: ServerResponse, userId: string | undefined) {
+  private async handleGetUserById(
+    res: ServerResponse,
+    userId: string | undefined
+  ) {
     if (!userId) {
       return this.sendResponse(res, 400, {
-        message: "User ID is required"
+        message: "User ID is required",
       });
     }
 
     if (!isValidUUID(userId)) {
       return this.sendResponse(res, 400, {
-        message: "Invalid user ID format"
+        message: "Invalid user ID format",
       });
     }
 
@@ -117,30 +120,34 @@ export class RequestManager {
 
     if (!user) {
       return this.sendResponse(res, 404, {
-        message: "User not found"
+        message: "User not found",
       });
     }
 
     return this.sendResponse(res, 200, user);
   }
 
-  private async handlePutUser(req: IncomingMessage, res: ServerResponse, userId: string | undefined) {
+  private async handlePutUser(
+    req: IncomingMessage,
+    res: ServerResponse,
+    userId: string | undefined
+  ) {
     if (!userId) {
       return this.sendResponse(res, 400, {
-        message: "User ID is required"
+        message: "User ID is required",
       });
     }
 
     if (!isValidUUID(userId)) {
       return this.sendResponse(res, 400, {
-        message: "Invalid user ID format"
+        message: "Invalid user ID format",
       });
     }
 
     const existingUser = await usersDB.getUserById(userId);
     if (!existingUser) {
       return this.sendResponse(res, 404, {
-        message: "User not found"
+        message: "User not found",
       });
     }
 
@@ -174,16 +181,19 @@ export class RequestManager {
     });
   }
 
-  private async handleDeleteUser(res: ServerResponse, userId: string | undefined) {
+  private async handleDeleteUser(
+    res: ServerResponse,
+    userId: string | undefined
+  ) {
     if (!userId) {
       return this.sendResponse(res, 400, {
-        message: "User ID is required"
+        message: "User ID is required",
       });
     }
 
     if (!isValidUUID(userId)) {
       return this.sendResponse(res, 400, {
-        message: "Invalid user ID format"
+        message: "Invalid user ID format",
       });
     }
 
@@ -191,7 +201,7 @@ export class RequestManager {
 
     if (result === 404) {
       return this.sendResponse(res, 404, {
-        message: "User not found"
+        message: "User not found",
       });
     }
 

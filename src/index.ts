@@ -1,7 +1,7 @@
 import { EOL } from "os";
 import "dotenv/config";
 import { createServer, IncomingMessage, ServerResponse } from "http";
-import { RequestManager } from "./manager/requestManager.js";
+import { RequestManager } from "./manager/requestManager";
 
 const host = "localhost";
 export const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3500;
