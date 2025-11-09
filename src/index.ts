@@ -18,5 +18,21 @@ export const server = createServer(
 );
 
 server.listen(port).on("listening", () => {
-  console.log(`Server HTTP is listening on http://${host}:${port}${EOL}`);
+  console.log(
+    `✅ Server HTTP is listening on http://${host}:${port}. Ctrl+C to exit${EOL}`
+  );
+});
+
+process.on("SIGINT", () => {
+  server.close(() => {
+    console.log(`✅ Server HTTP closed on http://${host}:${port}${EOL}`);
+    process.exit(0);
+  });
+});
+
+process.on("SIGTERM", () => {
+  server.close(() => {
+    console.log(`✅ Server HTTP closed on http://${host}:${port}${EOL}`);
+    process.exit(0);
+  });
 });

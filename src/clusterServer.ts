@@ -1,3 +1,5 @@
+import { EOL } from "os";
+
 import "dotenv/config";
 import cluster from "cluster";
 import { availableParallelism } from "os";
@@ -17,15 +19,40 @@ if (cluster.isPrimary) {
   const dbFilePath = resolve(process.cwd(), "users.json");
   const lockFilePath = resolve(process.cwd(), "users.json.lock");
 
-  if (existsSync(dbFilePath)) {
-    unlinkSync(dbFilePath);
-    console.log("🗑️  Cleared users.json database");
+  function cleanup() {
+    try {
+      if (existsSync(dbFilePath)) {
+        unlinkSync(dbFilePath);
+      }
+    } catch (err) {
+      console.error(" Error deleting temporary files:", err);
+    }
+
+    try {
+      if (existsSync(lockFilePath)) {
+        unlinkSync(lockFilePath);
+      }
+    } catch (err) {
+      console.error(" Error deleting temporary files:", err);
+    }
   }
 
-  if (existsSync(lockFilePath)) {
-    unlinkSync(lockFilePath);
-    console.log("🔓 Removed lock file");
-  }
+  cleanup();
+
+  process.on("exit", () => {
+    cleanup();
+  });
+
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(
+      `Worker ${worker.process.pid} died with code ${code} and signal ${signal}`
+    );
+
+    const aliveWorkers = Object.keys(cluster.workers || {}).length;
+    if (aliveWorkers === 0) {
+      cleanup();
+    }
+  });
 
   for (let i = 0; i < numCPUs; i++) {
     const port = BASE_PORT + i + 1;
@@ -54,11 +81,38 @@ if (cluster.isPrimary) {
       proxyRes.pipe(res, { end: true });
     });
 
+    proxy.on("error", (err) => {
+      console.error("Proxy error:", err);
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Internal server error" }));
+    });
+
     req.pipe(proxy, { end: true });
   });
 
   loadBalancer.listen(BASE_PORT, () => {
-    console.log(`Load balancer is listening on http://localhost:${BASE_PORT}`);
+    console.log(
+      `✅ Load balancer is listening on http://localhost:${BASE_PORT}${EOL}`
+    );
+    console.log(`to exit press Ctrl-C`);
+  });
+
+  process.on("SIGINT", () => {
+    console.log("\n Received SIGINT (Ctrl+C). Graceful shutdown...");
+    cleanup();
+    loadBalancer.close(() => {
+      console.log(`✅ Load balancer closed${EOL}`);
+      process.exit(0);
+    });
+  });
+
+  process.on("SIGTERM", () => {
+    console.log("\n Received SIGTERM. Graceful shutdown...");
+    cleanup();
+    loadBalancer.close(() => {
+      console.log(`✅ Load balancer closed${EOL}`);
+      process.exit(0);
+    });
   });
 } else {
   process.env.MULTI_MODE = "true";

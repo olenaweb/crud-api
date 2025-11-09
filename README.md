@@ -6,7 +6,9 @@ https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/crud-ap
 npm run start:dev     #  no warnings, stable launch
 
 #### Development Alternatives  
+
 npm run dev:watch    # with auto-reload on changes (tsx watch)
+
 npm run dev:nodemon  # with auto-reload via nodemon
 
 #### Production
@@ -151,4 +153,28 @@ or the same result in http://localhost:4002/api/users etc.
 14. curl -v http://localhost:4000/api/users
 
 # Complete CRUD API Testing
-look at TESTING.md file
+
+⚠️ **IMPORTANT: Before running tests, start the server!**
+
+## Testing Steps:
+
+1. **Start the server first:**
+```bash
+npm run start:dev     # Single process mode
+# OR
+npm run start:multi   # Multi-process mode
+```
+
+2. **Run tests (in a separate terminal):**
+```bash
+npm test
+```
+
+## Alternative: Use the batch script
+For Windows users, you can use the automated batch script:
+```bash
+./run-tests.bat
+```
+This script will automatically start the server, run tests, and stop the server.
+
+For complete testing documentation, see TESTING.md file

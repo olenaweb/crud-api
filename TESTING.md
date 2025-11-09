@@ -2,6 +2,26 @@
 
 This project contains comprehensive automated tests for the users CRUD API, meeting all assignment requirements.
 
+##  Requirements compliance
+
+ **not less than 3 scenarios** - 3 complete scenarios implemented  
+ **Scenario 1: All 6 steps from example** - fully covered in Scenario 1  
+ **Scenario 2: Data validation testing** - fully covered in Scenario 2
+ **Scenario 3: Non-existent resources testing** - fully covered in Scenario 3
+ **HTTP testing** - works with real server on port 4000
+
+##  How to run tests
+
+### 1. Start server in one terminal !!!:
+```bash
+npm run start:dev
+```
+
+### 2. Run tests in another terminal !!!:
+```bash
+npm run test
+```
+
 ##  Test Scenarios (3+ as required by assignment)
 
 ###  Scenario 1: Complete CRUD cycle (all 6 steps from assignment)
@@ -23,17 +43,6 @@ This project contains comprehensive automated tests for the users CRUD API, meet
 - Deleting non-existent user (404)
 - Accessing invalid endpoints (404)
 
-##  How to run tests
-
-### 1. Start server in one terminal:
-```bash
-npm run start:dev
-```
-
-### 2. Run tests in another terminal:
-```bash
-npm run test
-```
 
 ##  Testing structure
 
@@ -63,8 +72,4 @@ npm run test
 -  Should return 404 when trying to delete non-existent user
 -  Should return 404 for invalid endpoints
 
-##  Requirements compliance
 
- **not less than 3 scenarios** - 3 complete scenarios implemented  
- **All 6 steps from example** - fully covered in Scenario 1  
- **HTTP testing** - works with real server on port 4000
