@@ -150,4 +150,5 @@ or the same result in http://localhost:4002/api/users etc.
 
 14. curl -v http://localhost:4000/api/users
 
-
+# Complete CRUD API Testing
+look at TESTING.md file

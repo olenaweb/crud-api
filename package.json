@@ -14,7 +14,7 @@
     "fix": "npx prettier '**/*.{ts,css,html}' --write && npx eslint src/**/*.ts --fix",
     "lint": "npx eslint src/**/*.ts",
     "type-check": "npx tsc --noEmit",
-    "test": "npm run test "
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.10.0",
+    "@types/supertest": "^6.0.3",
     "@types/uuid": "^11.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
@@ -40,8 +42,11 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-webpack-plugin": "^5.0.2",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
     "ts-loader": "^9.5.4",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
