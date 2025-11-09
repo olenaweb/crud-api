@@ -1,7 +1,11 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { headers, endpoint, errMessages, reqUser } from "../types";
 import { usersDB } from "./usersDB";
+import { sharedUsersDB } from "./sharedUsersDB";
 import { validate as isValidUUID } from "uuid";
+
+const isMultiMode = process.env.MULTI_MODE === "true";
+const db = isMultiMode ? sharedUsersDB : usersDB;
 
 export class RequestManager {
   endpoint = endpoint;
@@ -64,7 +68,7 @@ export class RequestManager {
   }
 
   private async handleGetUsers(res: ServerResponse) {
-    const users = await usersDB.getAllUsers();
+    const users = await db.getAllUsers();
     return this.sendResponse(res, 200, users);
   }
 
@@ -89,7 +93,7 @@ export class RequestManager {
           });
         }
 
-        const newUser = await usersDB.addUser(parsed);
+        const newUser = await db.addUser(parsed);
 
         return this.sendResponse(res, 201, newUser);
       } catch {
@@ -116,7 +120,7 @@ export class RequestManager {
       });
     }
 
-    const user = await usersDB.getUserById(userId);
+    const user = await db.getUserById(userId);
 
     if (!user) {
       return this.sendResponse(res, 404, {
@@ -144,7 +148,7 @@ export class RequestManager {
       });
     }
 
-    const existingUser = await usersDB.getUserById(userId);
+    const existingUser = await db.getUserById(userId);
     if (!existingUser) {
       return this.sendResponse(res, 404, {
         message: "User not found",
@@ -171,7 +175,7 @@ export class RequestManager {
         }
 
         const userToUpdate = { id: userId, ...parsed };
-        const updatedUser = await usersDB.updateUser(userToUpdate);
+        const updatedUser = await db.updateUser(userToUpdate);
         return this.sendResponse(res, 200, updatedUser);
       } catch {
         return this.sendResponse(res, 400, {
@@ -197,7 +201,7 @@ export class RequestManager {
       });
     }
 
-    const result = await usersDB.deleteUser(userId);
+    const result = await db.deleteUser(userId);
 
     if (result === 404) {
       return this.sendResponse(res, 404, {

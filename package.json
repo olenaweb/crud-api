@@ -5,11 +5,11 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start:dev": "cross-env NODE_NO_WARNINGS=1 npx tsx ./src/index.ts",
-    "dev": "npx tsx ./src/index.ts",
+    "start:dev": "npx tsx ./src/index.ts",
     "dev:watch": "npx tsx watch ./src/index.ts",
     "dev:nodemon": "nodemon",
     "start:prod": "webpack && node ./dist/index.js",
+    "start:multi": "npx tsx ./src/clusterServer.ts",
     "lintfix": "npx eslint src/**/*.ts --fix",
     "fix": "npx prettier '**/*.{ts,css,html}' --write && npx eslint src/**/*.ts --fix",
     "lint": "npx eslint src/**/*.ts",

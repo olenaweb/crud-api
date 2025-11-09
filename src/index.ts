@@ -4,14 +4,14 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { RequestManager } from "./manager/requestManager";
 
 const host = "localhost";
-export const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3500;
+export const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 4000;
 
 const requestManager = new RequestManager();
 
 export const server = createServer(
   async (req: IncomingMessage, res: ServerResponse) => {
-    const { url } = req;
-    console.log("url = ", url);
+    const { url, method } = req;
+    console.log("port = ", port, "method = ", method, "url = ", url);
 
     await requestManager.handleRequest(req, res);
   }
