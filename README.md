@@ -33,7 +33,7 @@ npm run fix          # Auto-fix errors
 }
 ```
 
-## 🔄 TSX vs Nodemon for Auto-reload:
+##  TSX vs Nodemon for Auto-reload:
 
 **`npm run dev:watch` (tsx watch)** - recommended:
 -  Faster startup and restart
@@ -100,50 +100,54 @@ The application supports horizontal scaling using Node.js Cluster API:
 
 Browser URI : http://localhost:4000/api/users
 
-#### Bash terminal , run "curl" with symbol for break to next line \ 
-#### option -i  show status code ,headers,body
-#### Note that in PowerShell you need to escape quotes within JSON using \".
+###### Bash terminal , run "curl" with symbol for break to next line \ 
+###### option -i  show status code ,headers,body
+###### Note that in PowerShell you need to escape quotes within JSON using \".
 
 ###### GET api/users is used to get all persons
-curl http://localhost:4000/api/users
+1. curl http://localhost:4000/api/users
 
-curl -i http://localhost:4000/api/users
+2. curl -i http://localhost:4000/api/users
 ###### POST api/users is used to create record about new user and store it in database
-curl -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'
+3. curl -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'
 
-curl -i -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'
+4. curl -i -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":28,"hobbies":["music","reading"]}'
 
 ###### GET api/users/userId
-curl http://localhost:4000/api/users/791e4409-5d3a-44fd-8141-e6a436df9cb8
+5. curl http://localhost:4000/api/users/791e4409-5d3a-44fd-8141-e6a436df9cb8
 
-curl -i http://localhost:4000/api/users/791e4409-5d3a-44fd-8141-e6a436df9cb8
+6. curl -i http://localhost:4000/api/users/791e4409-5d3a-44fd-8141-e6a436df9cb8
 ###### PUT api/users/userId is used to update existing user
 ###### replace id for user with the current one in the database
-curl -X PUT http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d -d '{"username":"Alice","age":30,"hobbies":["writing","reading"]}'
+7. curl -X PUT http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d -d '{"username":"Alice","age":30,"hobbies":["writing","reading"]}'
 
-curl -i -X PUT http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d -d '{"username":"Alice","age":30,"hobbies":["writing","reading"]}'
+8. curl -i -X PUT http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d -d '{"username":"Alice","age":30,"hobbies":["writing","reading"]}'
   
 ###### DELETE api/users/userId is used to delete existing user from database
-curl -X DELETE http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d  
+9. curl -X DELETE http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d  
 
-curl -i -X DELETE http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d 
+10. curl -i -X DELETE http://localhost:4000/api/users/528e9190-bba2-43f7-8e4a-ed8785a1437d 
 
 ####  Multi-process Mode (`npm run start:multi`):
 ##### creating 2 users in parallel in 2 workers
 
-curl -i -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":11,"hobbies":["music","reading"]}' & curl -i -X POST http://localhost:4000/api/users -d '{"username":"Kira","age":13,"hobbies":["traveling","reading"]}'
+11. curl -i -X POST http://localhost:4000/api/users -d '{"username":"Alice","age":11,"hobbies":["music","reading"]}' & curl -i -X POST http://localhost:4000/api/users -d '{"username":"Kira","age":13,"hobbies":["traveling","reading"]}'
+
+look result in Browser URI : http://localhost:4000/api/users 
+or the same result in http://localhost:4001/api/users 
+or the same result in http://localhost:4002/api/users etc.
 
 ### Bash/Linux curl: 
 #### Show headers +status code+ body
 
-curl -i http://localhost:4000/api/users
+12. curl -i http://localhost:4000/api/users
 
 #### Only status code  
 
-curl -o /dev/null -s -w "%{http_code}" http://localhost:4000/api/users
+13. curl -o /dev/null -s -w "%{http_code}" http://localhost:4000/api/users
 
 #### Details
 
-curl -v http://localhost:4000/api/users
+14. curl -v http://localhost:4000/api/users
 
 
