@@ -36,19 +36,19 @@ npm run fix          # Auto-fix errors
 ## 🔄 TSX vs Nodemon for Auto-reload:
 
 **`npm run dev:watch` (tsx watch)** - recommended:
-- ⚡ Faster startup and restart
-- 🎯 Optimized for TypeScript
-- ✅ ES Modules out of the box
-- 📦 Smaller package size
+-  Faster startup and restart
+-  Optimized for TypeScript
+-  ES Modules out of the box
+-  Smaller package size
 
 **`npm run dev:nodemon` (nodemon)** - classic approach:
-- 👑 Industry standard
-- 🔧 More settings (see `nodemon.json`)
-- 📚 More documentation and examples
-- ⏱️ 500ms delay before restart
-- 📁 Watches only `src` folder
+-  Industry standard
+-  More settings (see `nodemon.json`)
+-  More documentation and examples
+-  500ms delay before restart
+-  Watches only `src` folder
 
-### 📁 Nodemon Configuration:
+###  Nodemon Configuration:
 File `nodemon.json` with settings:
 - Watches for changes in `src/`
 - Ignores test files
@@ -56,7 +56,7 @@ File `nodemon.json` with settings:
 - Automatically sets `NODE_ENV=development`
 
 
-## 🚀 Quick Start:
+##  Quick Start:
 
 **To test the project run:**
 ```bash
@@ -80,7 +80,7 @@ npm run start:prod     # Build and run optimized version (single process)
 npm run start:multi    # Cluster mode with load balancer on port 4000 and workers on ports 4001,4002 etc.
 ```
 
-## 🔀 Horizontal Scaling:
+##  Horizontal Scaling:
 
 The application supports horizontal scaling using Node.js Cluster API:
 
