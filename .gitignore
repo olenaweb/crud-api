@@ -1,0 +1,12 @@
+node_modules
+dist
+.eslintcache
+*.log
+.DS_Store
+
+# IDE
+.vscode/settings.json
+*.code-workspace
+.env
+users.json
+users.json.lock
