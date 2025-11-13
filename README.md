@@ -167,14 +167,7 @@ npm run start:multi   # Multi-process mode
 
 2. **Run tests (in a separate terminal):**
 ```bash
-npm test
+npm run test
 ```
-
-## Alternative: Use the batch script
-For Windows users, you can use the automated batch script:
-```bash
-./run-tests.bat
-```
-This script will automatically start the server, run tests, and stop the server.
 
 For complete testing documentation, see TESTING.md file
